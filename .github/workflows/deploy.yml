@@ -37,6 +37,8 @@ jobs:
         
       - name: Setup Pages
         uses: actions/configure-pages@v3
+        with:
+          static_site_generator: "vite"
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
