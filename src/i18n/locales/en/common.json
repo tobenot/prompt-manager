@@ -1,0 +1,74 @@
+{
+  "app": {
+    "name": "Prompt Manager",
+    "tagline": "Manage your AI prompts efficiently",
+    "description": "A lightweight browser-side prompt management tool"
+  },
+  "nav": {
+    "home": "Home",
+    "prompts": "Prompts",
+    "categories": "Categories",
+    "tags": "Tags",
+    "settings": "Settings"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "import": "Import",
+    "export": "Export",
+    "search": "Search",
+    "filter": "Filter",
+    "add": "Add",
+    "remove": "Remove",
+    "confirm": "Confirm",
+    "copy": "Copy",
+    "paste": "Paste",
+    "favorite": "Favorite",
+    "unfavorite": "Unfavorite",
+    "pin": "Pin",
+    "unpin": "Unpin"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "noResults": "No results found",
+    "required": "Required",
+    "optional": "Optional",
+    "search": "Search...",
+    "selectAll": "Select All",
+    "clearAll": "Clear All",
+    "moreOptions": "More Options",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "feedback": {
+    "copied": "Copied to clipboard",
+    "saved": "Changes saved",
+    "deleted": "Successfully deleted",
+    "created": "Successfully created",
+    "updated": "Successfully updated",
+    "imported": "Successfully imported",
+    "exported": "Successfully exported",
+    "error": "An error occurred",
+    "confirmDelete": "Are you sure you want to delete this?",
+    "confirmReset": "Are you sure you want to reset? All unsaved changes will be lost."
+  },
+  "time": {
+    "now": "Just now",
+    "minutesAgo": "{{count}} minute ago",
+    "minutesAgo_plural": "{{count}} minutes ago",
+    "hoursAgo": "{{count}} hour ago",
+    "hoursAgo_plural": "{{count}} hours ago",
+    "daysAgo": "{{count}} day ago",
+    "daysAgo_plural": "{{count}} days ago",
+    "weeksAgo": "{{count}} week ago",
+    "weeksAgo_plural": "{{count}} weeks ago"
+  }
+} 

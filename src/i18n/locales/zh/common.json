@@ -1,0 +1,74 @@
+{
+  "app": {
+    "name": "提示词管理器",
+    "tagline": "高效管理你的AI提示词",
+    "description": "一个轻量级的浏览器端提示词管理工具"
+  },
+  "nav": {
+    "home": "首页",
+    "prompts": "提示词",
+    "categories": "分类",
+    "tags": "标签",
+    "settings": "设置"
+  },
+  "actions": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "create": "创建",
+    "import": "导入",
+    "export": "导出",
+    "search": "搜索",
+    "filter": "筛选",
+    "add": "添加",
+    "remove": "移除",
+    "confirm": "确认",
+    "copy": "复制",
+    "paste": "粘贴",
+    "favorite": "收藏",
+    "unfavorite": "取消收藏",
+    "pin": "置顶",
+    "unpin": "取消置顶"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "noResults": "未找到结果",
+    "required": "必填",
+    "optional": "可选",
+    "search": "搜索...",
+    "selectAll": "全选",
+    "clearAll": "清除全部",
+    "moreOptions": "更多选项",
+    "language": "语言",
+    "theme": "主题",
+    "light": "亮色",
+    "dark": "暗色",
+    "system": "跟随系统"
+  },
+  "feedback": {
+    "copied": "已复制到剪贴板",
+    "saved": "已保存更改",
+    "deleted": "删除成功",
+    "created": "创建成功",
+    "updated": "更新成功",
+    "imported": "导入成功",
+    "exported": "导出成功",
+    "error": "发生错误",
+    "confirmDelete": "确定要删除吗？",
+    "confirmReset": "确定要重置吗？所有未保存的更改将丢失。"
+  },
+  "time": {
+    "now": "刚刚",
+    "minutesAgo": "{{count}}分钟前",
+    "minutesAgo_plural": "{{count}}分钟前",
+    "hoursAgo": "{{count}}小时前",
+    "hoursAgo_plural": "{{count}}小时前",
+    "daysAgo": "{{count}}天前",
+    "daysAgo_plural": "{{count}}天前",
+    "weeksAgo": "{{count}}周前",
+    "weeksAgo_plural": "{{count}}周前"
+  }
+} 

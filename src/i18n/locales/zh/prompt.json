@@ -1,0 +1,95 @@
+{
+  "prompt": {
+    "title": "标题",
+    "content": "内容",
+    "description": "描述",
+    "category": "分类",
+    "tags": "标签",
+    "createdAt": "创建时间",
+    "updatedAt": "更新时间",
+    "usageCount": "使用次数",
+    "variables": "变量",
+    "addVariable": "添加变量",
+    "variableName": "变量名称",
+    "variableDescription": "变量描述",
+    "defaultValue": "默认值",
+    "required": "必填",
+    "preview": "预览"
+  },
+  "editor": {
+    "title": "提示词编辑器",
+    "placeholderTitle": "输入提示词标题",
+    "placeholderContent": "在此处输入提示词内容...",
+    "placeholderDescription": "输入描述（可选）",
+    "savePrompt": "保存提示词",
+    "previewPrompt": "预览",
+    "wordCount": "{{count}}个词",
+    "wordCount_plural": "{{count}}个词",
+    "charCount": "{{count}}个字符",
+    "charCount_plural": "{{count}}个字符",
+    "variableSyntax": "使用{{variableName}}语法表示变量"
+  },
+  "list": {
+    "title": "提示词列表",
+    "addNew": "添加新提示词",
+    "importPrompts": "导入提示词",
+    "exportPrompts": "导出提示词",
+    "searchPlaceholder": "搜索提示词...",
+    "filterBy": "筛选条件",
+    "sortBy": "排序方式",
+    "newest": "最新",
+    "oldest": "最早",
+    "alphabetical": "字母顺序",
+    "mostUsed": "使用最多",
+    "recentlyUsed": "最近使用",
+    "noPrompts": "未找到提示词",
+    "createFirst": "创建你的第一个提示词"
+  },
+  "categories": {
+    "title": "分类",
+    "all": "所有分类",
+    "uncategorized": "未分类",
+    "addNew": "添加新分类",
+    "editCategory": "编辑分类",
+    "nameLabel": "分类名称",
+    "descriptionLabel": "描述",
+    "colorLabel": "颜色",
+    "iconLabel": "图标",
+    "promptCount": "{{count}}个提示词",
+    "promptCount_plural": "{{count}}个提示词",
+    "noCategories": "未找到分类",
+    "createFirst": "创建你的第一个分类"
+  },
+  "tags": {
+    "title": "标签",
+    "addNew": "添加新标签",
+    "editTag": "编辑标签",
+    "nameLabel": "标签名称",
+    "promptCount": "{{count}}个提示词",
+    "promptCount_plural": "{{count}}个提示词",
+    "noTags": "未找到标签",
+    "popular": "热门标签",
+    "all": "所有标签",
+    "searchPlaceholder": "搜索标签..."
+  },
+  "templates": {
+    "title": "模板",
+    "useTemplate": "使用模板",
+    "createFromTemplate": "从模板创建",
+    "category": {
+      "writing": "写作",
+      "coding": "编程",
+      "education": "教育",
+      "business": "商业",
+      "personal": "个人",
+      "creative": "创意",
+      "other": "其他"
+    }
+  },
+  "copyOptions": {
+    "copyPrompt": "复制提示词",
+    "copyWithVariables": "填充变量并复制",
+    "copyAsMarkdown": "复制为Markdown",
+    "copyAsJSON": "复制为JSON"
+  }
+} 

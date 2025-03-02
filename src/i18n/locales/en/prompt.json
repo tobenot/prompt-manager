@@ -1,0 +1,95 @@
+{
+  "prompt": {
+    "title": "Title",
+    "content": "Content",
+    "description": "Description",
+    "category": "Category",
+    "tags": "Tags",
+    "createdAt": "Created",
+    "updatedAt": "Updated",
+    "usageCount": "Usage Count",
+    "variables": "Variables",
+    "addVariable": "Add Variable",
+    "variableName": "Variable Name",
+    "variableDescription": "Variable Description",
+    "defaultValue": "Default Value",
+    "required": "Required",
+    "preview": "Preview"
+  },
+  "editor": {
+    "title": "Prompt Editor",
+    "placeholderTitle": "Enter prompt title",
+    "placeholderContent": "Enter your prompt content here...",
+    "placeholderDescription": "Enter a description (optional)",
+    "savePrompt": "Save Prompt",
+    "previewPrompt": "Preview",
+    "wordCount": "{{count}} word",
+    "wordCount_plural": "{{count}} words",
+    "charCount": "{{count}} character",
+    "charCount_plural": "{{count}} characters",
+    "variableSyntax": "Use {{variableName}} syntax for variables"
+  },
+  "list": {
+    "title": "Prompts",
+    "addNew": "Add New Prompt",
+    "importPrompts": "Import Prompts",
+    "exportPrompts": "Export Prompts",
+    "searchPlaceholder": "Search prompts...",
+    "filterBy": "Filter By",
+    "sortBy": "Sort By",
+    "newest": "Newest",
+    "oldest": "Oldest",
+    "alphabetical": "Alphabetical",
+    "mostUsed": "Most Used",
+    "recentlyUsed": "Recently Used",
+    "noPrompts": "No prompts found",
+    "createFirst": "Create your first prompt"
+  },
+  "categories": {
+    "title": "Categories",
+    "all": "All Categories",
+    "uncategorized": "Uncategorized",
+    "addNew": "Add New Category",
+    "editCategory": "Edit Category",
+    "nameLabel": "Category Name",
+    "descriptionLabel": "Description",
+    "colorLabel": "Color",
+    "iconLabel": "Icon",
+    "promptCount": "{{count}} prompt",
+    "promptCount_plural": "{{count}} prompts",
+    "noCategories": "No categories found",
+    "createFirst": "Create your first category"
+  },
+  "tags": {
+    "title": "Tags",
+    "addNew": "Add New Tag",
+    "editTag": "Edit Tag",
+    "nameLabel": "Tag Name",
+    "promptCount": "{{count}} prompt",
+    "promptCount_plural": "{{count}} prompts",
+    "noTags": "No tags found",
+    "popular": "Popular Tags",
+    "all": "All Tags",
+    "searchPlaceholder": "Search tags..."
+  },
+  "templates": {
+    "title": "Templates",
+    "useTemplate": "Use Template",
+    "createFromTemplate": "Create from Template",
+    "category": {
+      "writing": "Writing",
+      "coding": "Coding",
+      "education": "Education",
+      "business": "Business",
+      "personal": "Personal",
+      "creative": "Creative",
+      "other": "Other"
+    }
+  },
+  "copyOptions": {
+    "copyPrompt": "Copy Prompt",
+    "copyWithVariables": "Copy with Variables Filled",
+    "copyAsMarkdown": "Copy as Markdown",
+    "copyAsJSON": "Copy as JSON"
+  }
+} 
