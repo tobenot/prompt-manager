@@ -7,7 +7,11 @@ const LANGUAGES = [
   { code: 'zh', name: '中文', flag: '🇨🇳' }
 ];
 
-const LanguageSwitcher = ({ className }) => {
+interface LanguageSwitcherProps {
+  className?: string;
+}
+
+const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ className }) => {
   const { i18n } = useTranslation('common');
   const [isOpen, setIsOpen] = useState(false);
   
@@ -15,7 +19,7 @@ const LanguageSwitcher = ({ className }) => {
   const currentLanguage = LANGUAGES.find(lang => lang.code === i18n.language) || LANGUAGES[0];
   
   // 切换语言
-  const changeLanguage = (langCode) => {
+  const changeLanguage = (langCode: string) => {
     i18n.changeLanguage(langCode);
     setIsOpen(false);
   };

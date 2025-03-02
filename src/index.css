@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* 基础字体大小，使用rem时的参考值 */
+    font-size: 16px;
+    /* 系统字体栈，确保最佳性能和一致的风格 */
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    
+    /* 浅色主题默认颜色 */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 199 89% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 172 67% 38%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 199 89% 48%;
+    --radius: 0.5rem;
+  }
+
+  /* 暗色主题颜色 */
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 199 89% 54%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 172 67% 45%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 199 89% 54%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  /* 中文字体优化 */
+  html:lang(zh) {
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  }
+  /* 代码字体 */
+  code, pre, textarea.code {
+    font-family: "Fira Code", Consolas, Monaco, "Andale Mono", monospace;
+    font-feature-settings: normal;
+  }
+  
+  /* 基本标题和文本样式 */
+  h1 {
+    @apply text-3xl font-bold mb-4;
+  }
+  h2 {
+    @apply text-2xl font-semibold mb-3;
+  }
+  h3 {
+    @apply text-xl font-medium mb-2;
+  }
+  p {
+    @apply mb-4;
+  }
+  
+  /* 滚动条美化 */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/40 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/60;
+  }
+}
+
+/* 辅助类 */
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 focus:ring-secondary;
+  }
+  
+  .btn-outline {
+    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground focus:ring-primary;
+  }
+  
+  .btn-ghost {
+    @apply hover:bg-accent hover:text-accent-foreground focus:ring-primary;
+  }
+  
+  .btn-link {
+    @apply text-primary underline-offset-4 hover:underline focus:ring-primary;
+  }
+  
+  .card {
+    @apply rounded-lg border bg-card p-4 shadow-sm;
+  }
+  
+  .input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm 
+           ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+           placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
+           focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  .badge {
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors 
+           focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+  
+  .tooltip {
+    @apply absolute z-50 px-2 py-1 text-xs text-white bg-black rounded shadow-lg;
+  }
+}

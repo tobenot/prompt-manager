@@ -1,0 +1,34 @@
+{
+  "title": "Settings",
+  "general": {
+    "title": "General",
+    "language": "Language",
+    "theme": "Theme",
+    "auto": "Auto",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "appearance": {
+    "title": "Appearance",
+    "fontSize": "Font Size",
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large"
+  },
+  "data": {
+    "title": "Data Management",
+    "export": "Export Data",
+    "import": "Import Data",
+    "backup": "Backup",
+    "restore": "Restore",
+    "clear": "Clear All Data",
+    "clearConfirm": "Are you sure you want to clear all data? This action cannot be undone."
+  },
+  "about": {
+    "title": "About",
+    "version": "Version",
+    "feedback": "Send Feedback",
+    "github": "GitHub Repository",
+    "license": "License"
+  }
+} 

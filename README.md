@@ -25,12 +25,12 @@ A lightweight browser-side prompt management tool that helps users create, edit,
 
 ### 🔧 Tech Stack
 
-- **Frontend Framework**: React/Vue.js
+- **Frontend Framework**: React with TypeScript
 - **Styling**: TailwindCSS
-- **State Management**: Lightweight solution (React Context or Vuex)
+- **State Management**: Zustand
 - **Storage**: IndexedDB for prompt data, localStorage for user preferences
 - **Build Tools**: Vite, ESLint, and Prettier
-- **i18n**: react-i18next/vue-i18n for internationalization
+- **i18n**: react-i18next for internationalization
 
 ### 📦 Installation & Usage
 
@@ -85,12 +85,12 @@ MIT
 
 ### 🔧 技术栈
 
-- **前端框架**：React/Vue.js
+- **前端框架**：React配合TypeScript
 - **样式设计**：TailwindCSS
-- **状态管理**：轻量级解决方案（如React Context或Vuex）
+- **状态管理**：Zustand
 - **存储方案**：IndexedDB存储提示词数据，localStorage存储用户偏好
 - **构建工具**：Vite、ESLint和Prettier
-- **国际化**：使用react-i18next/vue-i18n实现多语言支持
+- **国际化**：使用react-i18next实现多语言支持
 
 ### 📦 安装与使用
 
@@ -119,3 +119,27 @@ npm run dev
 ### 📝 许可证
 
 MIT
+
+## Development Notes
+
+This project was created with Vite, React, and TypeScript. The template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+### Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default tseslint.config({
+  extends: [
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+  ],
+  languageOptions: {
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
