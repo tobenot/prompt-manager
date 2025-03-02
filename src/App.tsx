@@ -20,7 +20,7 @@ function App() {
   const { settings, updateSettings } = useSettingsStore()
   const [isLoading, setIsLoading] = useState(true)
   const [showPrivacyBanner, setShowPrivacyBanner] = useState(true)
-
+   
   // 初始化所有状态
   useEffect(() => {
     const init = async () => {
