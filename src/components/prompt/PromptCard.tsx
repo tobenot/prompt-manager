@@ -13,7 +13,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Prompt } from '../../types';
-import { formatDateTime, copyToClipboard } from '../../utils/helpers';
+import { copyToClipboard } from '../../utils/helpers';
 import { usePromptStore } from '../../store';
 
 interface PromptCardProps {

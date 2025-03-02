@@ -11,7 +11,7 @@
  */
 
 import { create } from 'zustand';
-import { Prompt, PromptState, PromptCategory, Tag } from '../types';
+import { Prompt, PromptState, PromptCategory } from '../types';
 import db from '../utils/indexedDB';
 import { generateId, getCurrentTime } from '../utils/helpers';
 

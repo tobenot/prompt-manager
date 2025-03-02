@@ -19,7 +19,7 @@ export const getCurrentTime = (): string => {
  * 简化后的文本处理函数
  * 直接返回输入的文本，不再创建多语言对象
  */
-export const createI18nText = (text: string, language: SupportedLanguage = 'en'): string => {
+export const createI18nText = (text: string): string => {
   return text;
 };
 
