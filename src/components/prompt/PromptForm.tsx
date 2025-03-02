@@ -203,41 +203,55 @@ const PromptForm: React.FC<PromptFormProps> = ({
     }
   };
   
+  // 获取分类图标
+  const getCategoryIcon = (iconName: string) => {
+    switch(iconName) {
+      case 'folder': return '📁';
+      case 'document': return '📄';
+      case 'code': return '💻';
+      case 'star': return '⭐';
+      case 'light': return '💡';
+      case 'message': return '💬';
+      case 'robot': return '🤖';
+      default: return '📁';
+    }
+  };
+  
   return (
     <>
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6 animate-fade-in">
         {/* 标题 */}
         <div>
-          <label className="block text-sm font-medium mb-1">
-            {t('prompt.title')} *
+          <label className="block text-sm font-medium mb-1.5">
+            {t('prompt.title')} <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
-            className={`input w-full ${errors.title ? 'border-red-500' : ''}`}
+            className={`input w-full ${errors.title ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder={t('prompt.titlePlaceholder')}
           />
-          {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title}</p>}
+          {errors.title && <p className="text-red-500 text-xs mt-1.5">{errors.title}</p>}
         </div>
         
         {/* 内容 */}
         <div>
-          <label className="block text-sm font-medium mb-1">
-            {t('prompt.content')} *
+          <label className="block text-sm font-medium mb-1.5">
+            {t('prompt.content')} <span className="text-red-500">*</span>
           </label>
           <textarea
-            className={`input w-full min-h-[200px] font-mono ${errors.content ? 'border-red-500' : ''}`}
+            className={`input w-full min-h-[200px] font-mono text-sm ${errors.content ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder={t('prompt.contentPlaceholder')}
           />
-          {errors.content && <p className="text-red-500 text-xs mt-1">{errors.content}</p>}
+          {errors.content && <p className="text-red-500 text-xs mt-1.5">{errors.content}</p>}
         </div>
         
         {/* 描述 */}
         <div>
-          <label className="block text-sm font-medium mb-1">
+          <label className="block text-sm font-medium mb-1.5">
             {t('prompt.description')}
           </label>
           <textarea
@@ -251,22 +265,31 @@ const PromptForm: React.FC<PromptFormProps> = ({
         
         {/* 分类 */}
         <div>
-          <label className="block text-sm font-medium mb-1">
-            {t('prompt.category')} *
+          <label className="block text-sm font-medium mb-1.5">
+            {t('prompt.category')} <span className="text-red-500">*</span>
           </label>
           <div className="flex gap-2">
-            <select
-              className={`input w-full ${errors.categoryId ? 'border-red-500' : ''}`}
-              value={categoryId}
-              onChange={(e) => setCategoryId(e.target.value)}
-            >
-              <option value="">{t('prompt.selectCategory')}</option>
-              {categories.map((category: PromptCategory) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
+            <div className="relative flex-1">
+              <select
+                className={`input w-full pl-10 appearance-none ${errors.categoryId ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                value={categoryId}
+                onChange={(e) => setCategoryId(e.target.value)}
+              >
+                <option value="">{t('prompt.selectCategory')}</option>
+                {categories.map((category: PromptCategory) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                {categoryId && (
+                  <span style={{ color: categories.find(c => c.id === categoryId)?.color || '#3498db' }}>
+                    {getCategoryIcon(categories.find(c => c.id === categoryId)?.icon || 'folder')}
+                  </span>
+                )}
+              </div>
+            </div>
             <button
               type="button"
               className="btn btn-outline"
@@ -276,24 +299,25 @@ const PromptForm: React.FC<PromptFormProps> = ({
               +
             </button>
           </div>
-          {errors.categoryId && <p className="text-red-500 text-xs mt-1">{errors.categoryId}</p>}
+          {errors.categoryId && <p className="text-red-500 text-xs mt-1.5">{errors.categoryId}</p>}
         </div>
         
         {/* 标签 */}
         <div>
-          <label className="block text-sm font-medium mb-1">
+          <label className="block text-sm font-medium mb-1.5">
             {t('prompt.tags')}
           </label>
-          <div className="flex flex-wrap gap-2 mb-2">
+          <div className="flex flex-wrap gap-2 mb-2 min-h-[28px]">
             {tags.map(tag => (
               <div 
                 key={tag} 
-                className="badge bg-muted flex items-center gap-1 text-sm"
+                className="tag flex items-center gap-1 text-sm bg-primary/10 text-primary"
               >
+                <span className="opacity-70 text-xs">#</span>
                 <span>{tag}</span>
                 <button
                   type="button"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="ml-1 text-primary/70 hover:text-primary transition-colors"
                   onClick={() => handleRemoveTag(tag)}
                 >
                   ×
@@ -302,14 +326,19 @@ const PromptForm: React.FC<PromptFormProps> = ({
             ))}
           </div>
           <div className="flex gap-2">
-            <input
-              type="text"
-              className="input w-full"
-              value={tagInput}
-              onChange={(e) => setTagInput(e.target.value)}
-              onKeyDown={handleTagKeyDown}
-              placeholder={t('prompt.tagPlaceholder')}
-            />
+            <div className="relative flex-1">
+              <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">
+                #
+              </div>
+              <input
+                type="text"
+                className="input w-full pl-7"
+                value={tagInput}
+                onChange={(e) => setTagInput(e.target.value)}
+                onKeyDown={handleTagKeyDown}
+                placeholder={t('prompt.tagPlaceholder')}
+              />
+            </div>
             <button
               type="button"
               className="btn btn-outline"
@@ -323,15 +352,21 @@ const PromptForm: React.FC<PromptFormProps> = ({
         
         {/* 收藏 */}
         <div className="flex items-center">
-          <input
-            type="checkbox"
-            id="isFavorite"
-            checked={isFavorite}
-            onChange={(e) => setIsFavorite(e.target.checked)}
-            className="mr-2"
-          />
-          <label htmlFor="isFavorite" className="text-sm">
-            {t('prompt.markAsFavorite')}
+          <label className="relative inline-flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              id="isFavorite"
+              checked={isFavorite}
+              onChange={(e) => setIsFavorite(e.target.checked)}
+              className="sr-only peer"
+            />
+            <div className="w-11 h-6 bg-muted peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer 
+                          peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
+                          after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all 
+                          peer-checked:bg-primary"></div>
+            <span className="ml-3 text-sm font-medium">
+              {t('prompt.markAsFavorite')}
+            </span>
           </label>
         </div>
         
@@ -355,12 +390,12 @@ const PromptForm: React.FC<PromptFormProps> = ({
       
       {/* 新分类模态框 */}
       {showCategoryModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-background p-6 rounded-lg shadow-lg w-full max-w-md">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-xs animate-fade-in">
+          <div className="bg-card p-6 rounded-xl shadow-lg w-full max-w-md border border-border/60 animate-scale-in">
             <h3 className="text-lg font-medium mb-4">{t('category.createNew')}</h3>
             
             {categoryFormError && (
-              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4">
+              <div className="bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-800 text-red-800 dark:text-red-300 px-4 py-2 rounded-lg mb-4 text-sm">
                 {categoryFormError}
               </div>
             )}
@@ -368,8 +403,8 @@ const PromptForm: React.FC<PromptFormProps> = ({
             <div className="space-y-4">
               {/* 分类名称 */}
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  {t('category.name')} *
+                <label className="block text-sm font-medium mb-1.5">
+                  {t('category.name')} <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -382,7 +417,7 @@ const PromptForm: React.FC<PromptFormProps> = ({
               
               {/* 分类描述 */}
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label className="block text-sm font-medium mb-1.5">
                   {t('category.description')}
                 </label>
                 <textarea
@@ -396,13 +431,13 @@ const PromptForm: React.FC<PromptFormProps> = ({
               
               {/* 分类颜色 */}
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label className="block text-sm font-medium mb-1.5">
                   {t('category.color')}
                 </label>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <input
                     type="color"
-                    className="h-10 w-10 border border-border rounded"
+                    className="h-10 w-12 border border-border rounded cursor-pointer"
                     value={newCategoryColor}
                     onChange={(e) => setNewCategoryColor(e.target.value)}
                   />
@@ -418,22 +453,27 @@ const PromptForm: React.FC<PromptFormProps> = ({
               
               {/* 分类图标 */}
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label className="block text-sm font-medium mb-1.5">
                   {t('category.icon')}
                 </label>
-                <select
-                  className="input w-full"
-                  value={newCategoryIcon}
-                  onChange={(e) => setNewCategoryIcon(e.target.value)}
-                >
-                  <option value="folder">📁 {t('icons.folder')}</option>
-                  <option value="document">📄 {t('icons.document')}</option>
-                  <option value="code">💻 {t('icons.code')}</option>
-                  <option value="star">⭐ {t('icons.star')}</option>
-                  <option value="light">💡 {t('icons.light')}</option>
-                  <option value="message">💬 {t('icons.message')}</option>
-                  <option value="robot">🤖 {t('icons.robot')}</option>
-                </select>
+                <div className="relative">
+                  <select
+                    className="input w-full pl-10 appearance-none"
+                    value={newCategoryIcon}
+                    onChange={(e) => setNewCategoryIcon(e.target.value)}
+                  >
+                    <option value="folder">📁 {t('icons.folder')}</option>
+                    <option value="document">📄 {t('icons.document')}</option>
+                    <option value="code">💻 {t('icons.code')}</option>
+                    <option value="star">⭐ {t('icons.star')}</option>
+                    <option value="light">💡 {t('icons.light')}</option>
+                    <option value="message">💬 {t('icons.message')}</option>
+                    <option value="robot">🤖 {t('icons.robot')}</option>
+                  </select>
+                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                    {getCategoryIcon(newCategoryIcon)}
+                  </div>
+                </div>
               </div>
             </div>
             
