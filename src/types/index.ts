@@ -70,22 +70,26 @@ export interface PromptState {
   prompts: Prompt[];
   categories: PromptCategory[];
   tags: Tag[];
-  addPrompt: (prompt: Omit<Prompt, 'id' | 'createdAt' | 'updatedAt' | 'usageCount'>) => void;
-  updatePrompt: (id: string, prompt: Partial<Prompt>) => void;
-  deletePrompt: (id: string) => void;
-  incrementUsage: (id: string) => void;
-  toggleFavorite: (id: string) => void;
-  togglePin: (id: string) => void;
-  addCategory: (category: Omit<PromptCategory, 'id' | 'createdAt' | 'updatedAt' | 'promptCount'>) => void;
-  updateCategory: (id: string, category: Partial<PromptCategory>) => void;
-  deleteCategory: (id: string) => void;
+  initialize: () => Promise<void>;
+  addPrompt: (prompt: Omit<Prompt, 'id' | 'createdAt' | 'updatedAt' | 'usageCount'>) => Promise<string | null>;
+  updatePrompt: (id: string, prompt: Partial<Prompt>) => Promise<boolean>;
+  deletePrompt: (id: string) => Promise<boolean>;
+  incrementUsage: (id: string) => Promise<boolean>;
+  toggleFavorite: (id: string) => Promise<boolean>;
+  togglePin: (id: string) => Promise<boolean>;
+  addCategory: (category: Omit<PromptCategory, 'id' | 'createdAt' | 'updatedAt' | 'promptCount'>) => Promise<string | null>;
+  updateCategory: (id: string, category: Partial<PromptCategory>) => Promise<boolean>;
+  deleteCategory: (id: string) => Promise<boolean>;
+  updateCategoryPromptCount: (categoryId: string) => Promise<boolean>;
+  updateTagsPromptCount: (tagNames: string[]) => Promise<boolean>;
 }
 
 // 应用设置状态
 export interface SettingsState {
   settings: UserSettings;
-  updateSettings: (settings: Partial<UserSettings>) => void;
-  resetSettings: () => void;
+  initialize: () => Promise<UserSettings>;
+  updateSettings: (settings: Partial<UserSettings>) => Promise<boolean>;
+  resetSettings: () => Promise<boolean>;
 }
 
 // 导入导出类型

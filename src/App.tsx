@@ -1,58 +1,64 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import LanguageSwitcher from './components/common/LanguageSwitcher.tsx'
+import LanguageSwitcher from './components/common/LanguageSwitcher'
+import HomePage from './pages/HomePage'
+import { initializeStores, useSettingsStore } from './store'
 import './App.css'
 
 function App() {
   const { t } = useTranslation('common')
-  const [count, setCount] = useState(0)
+  const { settings, updateSettings } = useSettingsStore()
+  const [isLoading, setIsLoading] = useState(true)
 
+  // 初始化所有状态
+  useEffect(() => {
+    const init = async () => {
+      await initializeStores()
+      setIsLoading(false)
+    }
+    
+    init()
+  }, [])
+  
+  // 切换主题
+  const toggleTheme = () => {
+    const newTheme = settings.theme === 'dark' ? 'light' : 'dark'
+    updateSettings({ theme: newTheme })
+  }
+  
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+        <p>{t('message.initializing')}</p>
+      </div>
+    )
+  }
+  
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="border-b border-border p-4">
-        <div className="container mx-auto flex justify-between items-center">
+      <header className="border-b border-border">
+        <div className="container mx-auto flex justify-between items-center h-16 px-4">
           <h1 className="text-2xl font-bold">{t('app.name')}</h1>
           <div className="flex items-center gap-4">
+            <button
+              className="p-2 rounded-md bg-muted hover:bg-muted/80 transition-colors"
+              onClick={toggleTheme}
+              title={settings.theme === 'dark' ? t('actions.lightMode') : t('actions.darkMode')}
+            >
+              {settings.theme === 'dark' ? '🌞' : '🌙'}
+            </button>
             <LanguageSwitcher />
           </div>
         </div>
       </header>
       
-      <main className="container mx-auto p-6">
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">{t('app.tagline')}</h2>
-          <p className="text-lg mb-4">{t('app.description')}</p>
-          
-          <div className="card">
-            <button 
-              onClick={() => setCount((count) => count + 1)}
-              className="btn btn-primary"
-            >
-              {t('actions.add')} ({count})
-            </button>
-          </div>
-        </section>
-        
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">{t('nav.prompts')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="card">
-                <h3 className="font-medium">{t('prompt.title')} {item}</h3>
-                <p className="text-muted-foreground">{t('prompt.description')}</p>
-                <div className="flex gap-2 mt-2">
-                  <button className="btn btn-outline btn-sm">{t('actions.edit')}</button>
-                  <button className="btn btn-ghost btn-sm">{t('actions.copy')}</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+      <main className="flex-1">
+        <HomePage />
       </main>
       
-      <footer className="border-t border-border p-4">
-        <div className="container mx-auto text-center text-muted-foreground">
-          Prompt Manager &copy; 2024
+      <footer className="border-t border-border p-4 text-center text-sm text-muted-foreground">
+        <div className="container mx-auto">
+          {t('app.footer', { year: new Date().getFullYear() })}
         </div>
       </footer>
     </div>
