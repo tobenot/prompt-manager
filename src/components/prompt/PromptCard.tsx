@@ -10,20 +10,18 @@ interface PromptCardProps {
 }
 
 const PromptCard: React.FC<PromptCardProps> = ({ prompt, onClick }) => {
-  const { t, i18n } = useTranslation('common');
+  const { t } = useTranslation('common');
   const { toggleFavorite, togglePin, incrementUsage } = usePromptStore();
   
-  // 获取当前语言的内容
-  const currentLang = i18n.language as 'en' | 'zh';
-  const title = prompt.title[currentLang] || prompt.title.en || prompt.title.zh || t('prompt.untitled');
-  const description = prompt.description?.[currentLang] || prompt.description?.en || prompt.description?.zh || '';
+  // 直接使用字符串格式的标题和描述
+  const title = prompt.title || t('prompt.untitled');
+  const description = prompt.description || '';
   
   // 处理复制到剪贴板
   const handleCopy = async (e: React.MouseEvent) => {
     e.stopPropagation();
     
-    const content = prompt.content[currentLang] || prompt.content.en || prompt.content.zh || '';
-    const success = await copyToClipboard(content);
+    const success = await copyToClipboard(prompt.content);
     
     if (success) {
       // 增加使用次数

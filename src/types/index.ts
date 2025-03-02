@@ -1,10 +1,10 @@
 // 支持的语言类型
 export type SupportedLanguage = 'en' | 'zh';
 
-// 多语言文本类型
-export type I18nText = {
-  [key in SupportedLanguage]: string;
-};
+// 简化后的文本类型 - 不再使用多语言对象
+// export type I18nText = {
+//   [key in SupportedLanguage]: string;
+// };
 
 // 基础实体类型
 export interface BaseEntity {
@@ -15,9 +15,9 @@ export interface BaseEntity {
 
 // 提示词模型
 export interface Prompt extends BaseEntity {
-  title: I18nText;
-  content: I18nText;
-  description?: I18nText;
+  title: string;
+  content: string;
+  description?: string;
   tags: string[];
   categoryId: string;
   isFavorite: boolean;
@@ -30,15 +30,15 @@ export interface Prompt extends BaseEntity {
 export interface PromptVariable {
   id: string;
   name: string;
-  description?: I18nText;
+  description?: string;
   defaultValue?: string;
   required: boolean;
 }
 
 // 提示词分类
 export interface PromptCategory extends BaseEntity {
-  name: I18nText;
-  description?: I18nText;
+  name: string;
+  description?: string;
   color?: string;
   icon?: string;
   promptCount: number;
@@ -46,7 +46,7 @@ export interface PromptCategory extends BaseEntity {
 
 // 标签
 export interface Tag extends BaseEntity {
-  name: I18nText;
+  name: string;
   promptCount: number;
 }
 

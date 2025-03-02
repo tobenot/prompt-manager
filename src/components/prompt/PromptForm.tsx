@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Prompt, I18nText, PromptCategory } from '../../types';
+import { Prompt, PromptCategory } from '../../types';
 import { usePromptStore } from '../../store';
 
 interface PromptFormProps {
@@ -14,14 +14,14 @@ const PromptForm: React.FC<PromptFormProps> = ({
   onSubmit,
   onCancel,
 }) => {
-  const { t, i18n } = useTranslation('common');
+  const { t } = useTranslation('common');
   const { addPrompt, updatePrompt, categories } = usePromptStore();
   const isEditing = !!prompt;
   
   // 表单状态
-  const [title, setTitle] = useState<I18nText>(prompt?.title || { en: '', zh: '' });
-  const [content, setContent] = useState<I18nText>(prompt?.content || { en: '', zh: '' });
-  const [description, setDescription] = useState<I18nText>(prompt?.description || { en: '', zh: '' });
+  const [title, setTitle] = useState<string>(prompt?.title || '');
+  const [content, setContent] = useState<string>(prompt?.content || '');
+  const [description, setDescription] = useState<string>(prompt?.description || '');
   const [categoryId, setCategoryId] = useState<string>(prompt?.categoryId || (categories[0]?.id || ''));
   const [tags, setTags] = useState<string[]>(prompt?.tags || []);
   const [tagInput, setTagInput] = useState<string>('');
@@ -33,9 +33,6 @@ const PromptForm: React.FC<PromptFormProps> = ({
     content?: string;
     categoryId?: string;
   }>({});
-  
-  // 当前语言
-  const currentLang = i18n.language as 'en' | 'zh';
   
   // 如果分类为空，使用第一个分类
   useEffect(() => {
@@ -53,12 +50,12 @@ const PromptForm: React.FC<PromptFormProps> = ({
     } = {};
     
     // 验证标题
-    if (!title[currentLang]?.trim()) {
+    if (!title?.trim()) {
       newErrors.title = t('validation.titleRequired');
     }
     
     // 验证内容
-    if (!content[currentLang]?.trim()) {
+    if (!content?.trim()) {
       newErrors.content = t('validation.contentRequired');
     }
     
@@ -138,18 +135,6 @@ const PromptForm: React.FC<PromptFormProps> = ({
     setTags(tags.filter(tag => tag !== tagToRemove));
   };
   
-  // 更新单个语言的文本
-  const updateI18nText = (
-    setter: React.Dispatch<React.SetStateAction<I18nText>>,
-    lang: 'en' | 'zh',
-    value: string
-  ) => {
-    setter(prev => ({
-      ...prev,
-      [lang]: value,
-    }));
-  };
-  
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* 标题 */}
@@ -157,37 +142,14 @@ const PromptForm: React.FC<PromptFormProps> = ({
         <label className="block text-sm font-medium mb-1">
           {t('prompt.title')} *
         </label>
-        <div className="space-y-2">
-          <div>
-            <div className="flex items-center mb-1">
-              <span className="text-xs mr-2">🇺🇸</span>
-              <span className="text-xs text-muted-foreground">English</span>
-            </div>
-            <input
-              type="text"
-              className={`input w-full ${errors.title && currentLang === 'en' ? 'border-red-500' : ''}`}
-              value={title.en}
-              onChange={(e) => updateI18nText(setTitle, 'en', e.target.value)}
-              placeholder={t('prompt.titlePlaceholder')}
-            />
-          </div>
-          
-          <div>
-            <div className="flex items-center mb-1">
-              <span className="text-xs mr-2">🇨🇳</span>
-              <span className="text-xs text-muted-foreground">中文</span>
-            </div>
-            <input
-              type="text"
-              className={`input w-full ${errors.title && currentLang === 'zh' ? 'border-red-500' : ''}`}
-              value={title.zh}
-              onChange={(e) => updateI18nText(setTitle, 'zh', e.target.value)}
-              placeholder={t('prompt.titlePlaceholder')}
-            />
-          </div>
-          
-          {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title}</p>}
-        </div>
+        <input
+          type="text"
+          className={`input w-full ${errors.title ? 'border-red-500' : ''}`}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder={t('prompt.titlePlaceholder')}
+        />
+        {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title}</p>}
       </div>
       
       {/* 内容 */}
@@ -195,35 +157,13 @@ const PromptForm: React.FC<PromptFormProps> = ({
         <label className="block text-sm font-medium mb-1">
           {t('prompt.content')} *
         </label>
-        <div className="space-y-2">
-          <div>
-            <div className="flex items-center mb-1">
-              <span className="text-xs mr-2">🇺🇸</span>
-              <span className="text-xs text-muted-foreground">English</span>
-            </div>
-            <textarea
-              className={`input w-full min-h-[200px] font-mono ${errors.content && currentLang === 'en' ? 'border-red-500' : ''}`}
-              value={content.en}
-              onChange={(e) => updateI18nText(setContent, 'en', e.target.value)}
-              placeholder={t('prompt.contentPlaceholder')}
-            />
-          </div>
-          
-          <div>
-            <div className="flex items-center mb-1">
-              <span className="text-xs mr-2">🇨🇳</span>
-              <span className="text-xs text-muted-foreground">中文</span>
-            </div>
-            <textarea
-              className={`input w-full min-h-[200px] font-mono ${errors.content && currentLang === 'zh' ? 'border-red-500' : ''}`}
-              value={content.zh}
-              onChange={(e) => updateI18nText(setContent, 'zh', e.target.value)}
-              placeholder={t('prompt.contentPlaceholder')}
-            />
-          </div>
-          
-          {errors.content && <p className="text-red-500 text-xs mt-1">{errors.content}</p>}
-        </div>
+        <textarea
+          className={`input w-full min-h-[200px] font-mono ${errors.content ? 'border-red-500' : ''}`}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder={t('prompt.contentPlaceholder')}
+        />
+        {errors.content && <p className="text-red-500 text-xs mt-1">{errors.content}</p>}
       </div>
       
       {/* 描述 */}
@@ -231,35 +171,13 @@ const PromptForm: React.FC<PromptFormProps> = ({
         <label className="block text-sm font-medium mb-1">
           {t('prompt.description')}
         </label>
-        <div className="space-y-2">
-          <div>
-            <div className="flex items-center mb-1">
-              <span className="text-xs mr-2">🇺🇸</span>
-              <span className="text-xs text-muted-foreground">English</span>
-            </div>
-            <textarea
-              className="input w-full"
-              value={description.en}
-              onChange={(e) => updateI18nText(setDescription, 'en', e.target.value)}
-              placeholder={t('prompt.descriptionPlaceholder')}
-              rows={2}
-            />
-          </div>
-          
-          <div>
-            <div className="flex items-center mb-1">
-              <span className="text-xs mr-2">🇨🇳</span>
-              <span className="text-xs text-muted-foreground">中文</span>
-            </div>
-            <textarea
-              className="input w-full"
-              value={description.zh}
-              onChange={(e) => updateI18nText(setDescription, 'zh', e.target.value)}
-              placeholder={t('prompt.descriptionPlaceholder')}
-              rows={2}
-            />
-          </div>
-        </div>
+        <textarea
+          className="input w-full"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder={t('prompt.descriptionPlaceholder')}
+          rows={3}
+        />
       </div>
       
       {/* 分类 */}
@@ -275,7 +193,7 @@ const PromptForm: React.FC<PromptFormProps> = ({
           <option value="">{t('prompt.selectCategory')}</option>
           {categories.map((category: PromptCategory) => (
             <option key={category.id} value={category.id}>
-              {category.name[currentLang] || category.name.en || category.name.zh}
+              {category.name}
             </option>
           ))}
         </select>

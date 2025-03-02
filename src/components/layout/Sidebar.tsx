@@ -22,17 +22,14 @@ const Sidebar: React.FC<SidebarProps> = ({
   onAllPromptsSelect,
   showNewCategoryForm,
 }) => {
-  const { t, i18n } = useTranslation('common');
-  const { categories, tags, prompts } = usePromptStore();
+  const { t } = useTranslation('common');
+  const { prompts, categories, tags } = usePromptStore();
   const [showAllTags, setShowAllTags] = useState(false);
   
-  // 当前语言
-  const currentLang = i18n.language as 'en' | 'zh';
-  
-  // 获取收藏的提示词数量
+  // 计算收藏数量
   const favoriteCount = prompts.filter(p => p.isFavorite).length;
   
-  // 限制显示的标签数量
+  // 显示的标签列表 (最多显示5个或全部)
   const displayedTags = showAllTags ? tags : tags.slice(0, 5);
   
   // 处理分类点击
@@ -96,7 +93,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               onClick={() => handleCategoryClick(category.id)}
             >
               <span className="text-sm">
-                {category.name[currentLang] || category.name.en || category.name.zh}
+                {category.name}
               </span>
               <span className="text-xs text-muted-foreground">{category.promptCount}</span>
             </button>
@@ -114,13 +111,11 @@ const Sidebar: React.FC<SidebarProps> = ({
             <button
               key={tag.id}
               className={`flex justify-between items-center w-full px-3 py-2 rounded-md transition-colors
-                ${selectedTag === tag.name.en || selectedTag === tag.name.zh 
-                  ? 'bg-primary/10 text-primary' 
-                  : 'hover:bg-muted'}`}
-              onClick={() => handleTagClick(tag.name[currentLang] || tag.name.en || tag.name.zh)}
+                ${selectedTag === tag.name ? 'bg-primary/10 text-primary' : 'hover:bg-muted'}`}
+              onClick={() => handleTagClick(tag.name)}
             >
               <span className="text-sm">
-                {tag.name[currentLang] || tag.name.en || tag.name.zh}
+                {tag.name}
               </span>
               <span className="text-xs text-muted-foreground">{tag.promptCount}</span>
             </button>

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { I18nText, SupportedLanguage } from '../types';
+import { SupportedLanguage } from '../types';
 
 /**
  * 生成唯一ID
@@ -16,15 +16,11 @@ export const getCurrentTime = (): string => {
 };
 
 /**
- * 创建多语言文本对象
+ * 简化后的文本处理函数
+ * 直接返回输入的文本，不再创建多语言对象
  */
-export const createI18nText = (text: string, language: SupportedLanguage = 'en'): I18nText => {
-  const i18nText: I18nText = {
-    en: '',
-    zh: '',
-  };
-  i18nText[language] = text;
-  return i18nText;
+export const createI18nText = (text: string, language: SupportedLanguage = 'en'): string => {
+  return text;
 };
 
 /**
@@ -71,13 +67,6 @@ export const searchFilter = <T extends { [key: string]: any }>(
   return items.filter(item => {
     return fields.some(field => {
       const value = item[field];
-      
-      // 处理嵌套对象 (如 I18nText)
-      if (value && typeof value === 'object') {
-        return Object.values(value).some(
-          val => typeof val === 'string' && val.toLowerCase().includes(lowerSearchTerm)
-        );
-      }
       
       // 处理数组
       if (Array.isArray(value)) {
@@ -161,10 +150,10 @@ export const exportToFile = (data: any, fileName: string, fileType: 'json' | 'ma
       content = `# 导出的提示词\n\n`;
       if (Array.isArray(data)) {
         data.forEach((item, index) => {
-          content += `## ${index + 1}. ${item.title?.en || item.title?.zh || '无标题'}\n\n`;
-          content += `${item.content?.en || item.content?.zh || ''}\n\n`;
-          if (item.description?.en || item.description?.zh) {
-            content += `> ${item.description?.en || item.description?.zh}\n\n`;
+          content += `## ${index + 1}. ${item.title || '无标题'}\n\n`;
+          content += `${item.content || ''}\n\n`;
+          if (item.description) {
+            content += `> ${item.description}\n\n`;
           }
           if (item.tags && item.tags.length > 0) {
             content += `标签: ${item.tags.join(', ')}\n\n`;
@@ -177,8 +166,8 @@ export const exportToFile = (data: any, fileName: string, fileType: 'json' | 'ma
     case 'text':
       if (Array.isArray(data)) {
         data.forEach((item, index) => {
-          content += `${index + 1}. ${item.title?.en || item.title?.zh || '无标题'}\n`;
-          content += `${item.content?.en || item.content?.zh || ''}\n\n`;
+          content += `${index + 1}. ${item.title || '无标题'}\n`;
+          content += `${item.content || ''}\n\n`;
         });
       }
       mimeType = 'text/plain';

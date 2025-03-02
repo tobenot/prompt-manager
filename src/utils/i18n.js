@@ -9,50 +9,33 @@ export const getCurrentLanguage = () => {
 };
 
 /**
- * 从多语言对象中获取当前语言的文本
- * @param {object} i18nText - 多语言文本对象
- * @param {string} [fallbackLang='en'] - 回退语言
- * @returns {string} 当前语言的文本
+ * 获取本地化文本（现在只是直接返回文本，不做多语言处理）
+ * @param {string} text - 文本字符串
+ * @returns {string} 相同的文本字符串
  */
-export const getLocalizedText = (i18nText, fallbackLang = 'en') => {
-  if (!i18nText) return '';
-  
-  const currentLang = getCurrentLanguage();
-  
-  // 如果存在当前语言的文本，返回它
-  if (i18nText[currentLang]) {
-    return i18nText[currentLang];
-  }
-  
-  // 否则返回回退语言的文本
-  return i18nText[fallbackLang] || '';
+export const getLocalizedText = (text) => {
+  if (!text) return '';
+  return text;
 };
 
 /**
- * 创建新的多语言文本对象
- * @param {string} enText - 英文文本
- * @param {string} zhText - 中文文本
- * @returns {object} 多语言文本对象
+ * 创建文本（现在只是直接返回输入的文本，不创建多语言对象）
+ * @param {string} text - 文本
+ * @returns {string} 相同的文本
  */
-export const createI18nText = (enText, zhText = '') => {
-  return {
-    en: enText,
-    zh: zhText || enText // 如果没有提供中文，默认使用英文
-  };
+export const createI18nText = (text) => {
+  return text;
 };
 
 /**
- * 更新多语言文本对象的特定语言文本
- * @param {object} i18nText - 多语言文本对象
- * @param {string} lang - 语言代码
- * @param {string} text - 新文本
- * @returns {object} 更新后的多语言文本对象
+ * 更新文本（现在只是直接返回新文本，不更新多语言对象）
+ * @param {string} _currentText - 当前文本（不使用）
+ * @param {string} _lang - 语言代码（不使用）
+ * @param {string} newText - 新文本
+ * @returns {string} 新文本
  */
-export const updateI18nText = (i18nText, lang, text) => {
-  return {
-    ...i18nText,
-    [lang]: text
-  };
+export const updateI18nText = (_currentText, _lang, newText) => {
+  return newText;
 };
 
 /**

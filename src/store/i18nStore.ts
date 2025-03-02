@@ -3,10 +3,38 @@ import { I18nState, SupportedLanguage } from '../types';
 import i18n from 'i18next';
 import { localStorage } from '../utils/helpers';
 
+// 获取浏览器语言设置
+const getBrowserLanguage = (): SupportedLanguage => {
+  // 获取浏览器语言
+  const browserLang = navigator.language.toLowerCase();
+  
+  // 检查是否为支持的语言
+  if (browserLang.startsWith('zh')) {
+    return 'zh';
+  }
+  
+  // 默认返回英文
+  return 'en';
+};
+
+// 获取初始语言
+const getInitialLanguage = (): SupportedLanguage => {
+  // 尝试从localStorage获取
+  const savedLanguage = localStorage.get<SupportedLanguage | undefined>('language', undefined);
+  
+  // 如果有保存的语言设置，使用它
+  if (savedLanguage) {
+    return savedLanguage;
+  }
+  
+  // 否则使用浏览器语言
+  return getBrowserLanguage();
+};
+
 // 国际化状态存储
 const useI18nStore = create<I18nState>((set) => ({
   // 当前语言
-  language: (localStorage.get<SupportedLanguage>('language', 'en')),
+  language: getInitialLanguage(),
   
   // 设置语言
   setLanguage: (lang: SupportedLanguage) => {

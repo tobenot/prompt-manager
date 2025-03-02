@@ -1,7 +1,7 @@
 import { create } from 'zustand';
-import { Prompt, PromptState } from '../types';
+import { Prompt, PromptState, PromptCategory, Tag } from '../types';
 import db from '../utils/indexedDB';
-import { generateId, getCurrentTime, createI18nText } from '../utils/helpers';
+import { generateId, getCurrentTime } from '../utils/helpers';
 
 // 提示词状态存储
 const usePromptStore = create<PromptState>((set, get) => ({
@@ -24,14 +24,8 @@ const usePromptStore = create<PromptState>((set, get) => ({
       if (categories.length === 0) {
         const defaultCategory = {
           id: generateId(),
-          name: {
-            en: 'General',
-            zh: '通用',
-          },
-          description: {
-            en: 'Default category for prompts',
-            zh: '提示词的默认分类',
-          },
+          name: '通用',
+          description: '提示词的默认分类',
           color: '#3498db',
           icon: 'folder',
           promptCount: 0,
@@ -303,30 +297,30 @@ const usePromptStore = create<PromptState>((set, get) => ({
       
       // 找到默认分类
       const defaultCategory = get().categories.find(c => 
-        c.name.en === 'General' || c.name.zh === '通用'
+        c.name === '通用'
       );
       
       // 如果没有默认分类，则创建一个
       let defaultCategoryId = defaultCategory?.id;
       if (!defaultCategoryId) {
-        defaultCategoryId = await get().addCategory({
-          name: {
-            en: 'General',
-            zh: '通用',
-          },
-          description: {
-            en: 'Default category for prompts',
-            zh: '提示词的默认分类',
-          },
+        const result = await get().addCategory({
+          name: '通用',
+          description: '提示词的默认分类',
           color: '#3498db',
           icon: 'folder',
         });
+        
+        if (result) {
+          defaultCategoryId = result;
+        } else {
+          throw new Error('无法创建默认分类');
+        }
       }
       
       // 将使用此分类的提示词移至默认分类
       await Promise.all(
         promptsWithCategory.map(prompt => 
-          get().updatePrompt(prompt.id, { categoryId: defaultCategoryId as string })
+          get().updatePrompt(prompt.id, { categoryId: defaultCategoryId })
         )
       );
       
@@ -389,14 +383,14 @@ const usePromptStore = create<PromptState>((set, get) => ({
           const count = promptsWithTag.length;
           
           // 查找现有标签
-          let tag = get().tags.find(t => t.name.en === tagName || t.name.zh === tagName);
+          let tag = get().tags.find(t => t.name === tagName);
           
           // 如果标签不存在且有提示词使用它，则创建新标签
           if (!tag && count > 0) {
             const now = getCurrentTime();
             tag = {
               id: generateId(),
-              name: createI18nText(tagName),
+              name: tagName,
               promptCount: count,
               createdAt: now,
               updatedAt: now,
