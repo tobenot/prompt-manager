@@ -1,3 +1,15 @@
+/**
+ * Prompt Manager - Prompt Card Component
+ * 
+ * 数据安全声明：本组件仅展示存储在本地的提示词数据，
+ * 不会将任何数据发送至任何外部服务器，确保用户数据的隐私安全。
+ * 
+ * 开源声明：本项目代码基于MIT许可证开源，欢迎贡献和使用。
+ * 
+ * @license MIT
+ * @copyright Copyright (c) 2024
+ */
+
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Prompt } from '../../types';
@@ -71,7 +83,7 @@ const PromptCard: React.FC<PromptCardProps> = ({ prompt, onClick }) => {
   
   return (
     <div 
-      className="card group hover:shadow-md transition-all duration-200 cursor-pointer card-hover animate-fade-in"
+      className="card group hover:shadow-md transition-all duration-200 cursor-pointer card-hover animate-fade-in p-4 h-full flex flex-col"
       onClick={onClick}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -90,11 +102,11 @@ const PromptCard: React.FC<PromptCardProps> = ({ prompt, onClick }) => {
               {getCategoryIcon(category.icon || 'folder')}
             </span>
           )}
-          <h3 className="font-medium text-lg group-hover:text-primary transition-colors">
+          <h3 className="font-medium text-base sm:text-lg group-hover:text-primary transition-colors break-words">
             {title}
           </h3>
         </div>
-        <div className="flex gap-1.5">
+        <div className="flex gap-1.5 flex-shrink-0 ml-2">
           {prompt.isPinned && (
             <button 
               className="text-primary hover:scale-110 transition-transform"
@@ -115,7 +127,7 @@ const PromptCard: React.FC<PromptCardProps> = ({ prompt, onClick }) => {
       </div>
       
       {description && (
-        <p className="text-muted-foreground text-sm mb-3 line-clamp-2 group-hover:text-foreground/90 transition-colors">
+        <p className="text-muted-foreground text-xs sm:text-sm mb-3 line-clamp-2 group-hover:text-foreground/90 transition-colors">
           {description}
         </p>
       )}
@@ -125,7 +137,7 @@ const PromptCard: React.FC<PromptCardProps> = ({ prompt, onClick }) => {
           {prompt.tags.map((tag) => (
             <span 
               key={tag} 
-              className="tag group-hover:bg-primary/10 group-hover:text-primary transition-colors"
+              className="tag group-hover:bg-primary/10 group-hover:text-primary transition-colors text-xs"
             >
               <span className="opacity-70 mr-0.5">#</span>
               {tag}
@@ -134,7 +146,7 @@ const PromptCard: React.FC<PromptCardProps> = ({ prompt, onClick }) => {
         </div>
       )}
       
-      <div className="flex justify-between items-center mt-3 pt-2 border-t border-border/40">
+      <div className="flex justify-between items-center mt-auto pt-2 border-t border-border/40">
         <span className="text-xs text-muted-foreground flex items-center gap-1.5 group-hover:text-foreground/70 transition-colors">
           <span role="img" aria-label="usage count" className="opacity-70">🔄</span>
           {t('prompt.usedTimes', { count: prompt.usageCount })}
@@ -149,15 +161,14 @@ const PromptCard: React.FC<PromptCardProps> = ({ prompt, onClick }) => {
             {isCopied ? t('actions.copied') : t('actions.copy')}
           </button>
           
-          {isHovering && (
-            <button 
-              className="btn btn-outline btn-xs animate-scale-in"
-              onClick={onClick}
-              title={t('actions.edit')}
-            >
-              {t('actions.edit')}
-            </button>
-          )}
+          {/* 在移动端总是显示编辑按钮，在桌面端悬停时显示 */}
+          <button 
+            className={`btn btn-outline btn-xs ${isHovering || window.innerWidth < 768 ? 'inline-flex' : 'hidden md:inline-flex'} animate-scale-in`}
+            onClick={onClick}
+            title={t('actions.edit')}
+          >
+            {t('actions.edit')}
+          </button>
         </div>
       </div>
     </div>

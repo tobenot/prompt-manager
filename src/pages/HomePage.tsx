@@ -18,6 +18,8 @@ const HomePage: React.FC = () => {
   const [isAddingPrompt, setIsAddingPrompt] = useState<boolean>(false);
   const [editingPrompt, setEditingPrompt] = useState<Prompt | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  // 移动端侧边栏控制
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   
   // 初始化数据
   useEffect(() => {
@@ -84,6 +86,16 @@ const HomePage: React.FC = () => {
   const clearSearch = () => {
     setSearchTerm('');
   };
+
+  // 打开侧边栏
+  const openSidebar = () => {
+    setSidebarOpen(true);
+  };
+
+  // 关闭侧边栏
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
   
   return (
     <div className="flex h-[calc(100vh-64px)]">
@@ -95,6 +107,8 @@ const HomePage: React.FC = () => {
         onTagSelect={handleTagSelect}
         onFavoritesSelect={handleFavoritesSelect}
         onAllPromptsSelect={handleAllPromptsSelect}
+        isOpen={sidebarOpen}
+        onClose={closeSidebar}
       />
       
       {/* 主内容区 */}
@@ -106,20 +120,30 @@ const HomePage: React.FC = () => {
         ) : (
           <>
             {/* 标题栏 */}
-            <div className="flex justify-between items-center mb-6">
-              <h1 className="text-2xl font-bold">
-                {showFavorites ? t('nav.favorites') : 
-                  selectedCategoryId ? t('nav.categoryPrompts') : 
-                  selectedTag ? `#${selectedTag}` : 
-                  t('nav.allPrompts')}
-              </h1>
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
+              <div className="flex items-center">
+                {/* 移动端菜单按钮 */}
+                <button 
+                  className="md:hidden mr-4 p-2 rounded-lg bg-muted/80 hover:bg-muted transition-colors"
+                  onClick={openSidebar}
+                  aria-label={t('actions.openMenu')}
+                >
+                  ☰
+                </button>
+                <h1 className="text-xl md:text-2xl font-bold">
+                  {showFavorites ? t('nav.favorites') : 
+                    selectedCategoryId ? t('nav.categoryPrompts') : 
+                    selectedTag ? `#${selectedTag}` : 
+                    t('nav.allPrompts')}
+                </h1>
+              </div>
               
-              <div className="flex items-center space-x-4">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4">
                 {/* 搜索框 */}
                 <div className="relative">
                   <input
                     type="text"
-                    className="input pr-8"
+                    className="input pr-8 w-full"
                     placeholder={t('actions.search')}
                     value={searchTerm}
                     onChange={handleSearch}
@@ -146,7 +170,7 @@ const HomePage: React.FC = () => {
             
             {/* 提示词表单 */}
             {(isAddingPrompt || editingPrompt) && (
-              <div className="mb-8 p-6 bg-card rounded-lg border border-border">
+              <div className="mb-8 p-4 md:p-6 bg-card rounded-lg border border-border">
                 <h2 className="text-xl font-semibold mb-4">
                   {editingPrompt ? t('prompt.editPrompt') : t('prompt.newPrompt')}
                 </h2>

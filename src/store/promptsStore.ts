@@ -1,3 +1,15 @@
+/**
+ * Prompt Manager - Prompt Store
+ * 
+ * 数据安全声明：本存储模块使用IndexedDB将所有数据保存在用户本地浏览器中，
+ * 不会将任何用户数据上传至任何服务器，确保用户数据的隐私和安全。
+ * 
+ * 开源声明：本项目代码基于MIT许可证开源，欢迎贡献和使用。
+ * 
+ * @license MIT
+ * @copyright Copyright (c) 2024
+ */
+
 import { create } from 'zustand';
 import { Prompt, PromptState, PromptCategory, Tag } from '../types';
 import db from '../utils/indexedDB';

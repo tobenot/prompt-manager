@@ -7,6 +7,10 @@
 
 A lightweight browser-side prompt management tool that helps users create, edit, categorize and export prompt templates. Data is stored locally in the browser without the need for a backend server.
 
+### 🔒 Data Security
+
+**All data is stored only in your local browser and never uploaded to any server.** This application uses IndexedDB to store all prompt data locally, ensuring your privacy and data security.
+
 ### 🚀 Features
 
 - **Create & Edit**: Add new prompts and edit existing ones
@@ -48,6 +52,30 @@ npm install
 npm run dev
 ```
 
+### 🚀 Deployment to GitHub Pages
+
+This project includes an automated GitHub Actions workflow for deploying to GitHub Pages:
+
+1. Fork or clone this repository
+2. Update the `base` path in `vite.config.ts` to match your repository name:
+   ```js
+   base: '/your-repo-name/',
+   ```
+3. Push your changes to the `main` branch
+4. GitHub Actions will automatically build and deploy your site
+5. Your site will be available at `https://yourusername.github.io/your-repo-name/`
+
+Alternatively, you can manually deploy:
+
+```bash
+# Build the project
+npm run build
+
+# Deploy to GitHub Pages (if you have gh-pages installed)
+npm install -g gh-pages
+gh-pages -d dist
+```
+
 ### 🔮 Future Enhancements
 
 1. **Cloud Sync**: Optional cloud storage synchronization
@@ -66,6 +94,10 @@ MIT
 ## 🌍 中文
 
 一个轻量级的浏览器端提示词管理工具，帮助用户创建、编辑、分类和导出提示词模板。数据存储在浏览器本地，无需后端服务器。
+
+### 🔒 数据安全声明
+
+**所有数据仅保存在您本地浏览器中，绝不会上传到任何服务器。** 本应用使用浏览器的IndexedDB存储所有提示词数据，确保您的隐私和数据安全。
 
 ### 🚀 功能特点
 

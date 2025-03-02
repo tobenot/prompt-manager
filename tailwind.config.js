@@ -1,3 +1,14 @@
+/**
+ * Prompt Manager - Tailwind CSS Configuration
+ * 
+ * 数据安全声明：此配置文件仅用于样式定义，不包含任何用户数据处理逻辑。
+ * 
+ * 开源声明：本项目代码基于MIT许可证开源，欢迎贡献和使用。
+ * 
+ * @license MIT
+ * @copyright Copyright (c) 2024
+ */
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -6,6 +17,14 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '480px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+      },
       colors: {
         primary: {
           50: '#f0f9ff',
@@ -83,6 +102,8 @@ export default {
         'scale-in': 'scaleIn 0.2s ease-out',
         'bounce-light': 'bounceLight 1s infinite',
         'pulse-light': 'pulseLight 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'slide-in-right': 'slideInRight 0.3s ease-out',
+        'slide-out-left': 'slideOutLeft 0.3s ease-in',
       },
       keyframes: {
         fadeIn: {
@@ -105,6 +126,14 @@ export default {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.8' },
         },
+        slideInRight: {
+          '0%': { transform: 'translateX(100%)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        slideOutLeft: {
+          '0%': { transform: 'translateX(0)', opacity: '1' },
+          '100%': { transform: 'translateX(-100%)', opacity: '0' },
+        },
       },
       backdropBlur: {
         xs: '2px',
@@ -115,6 +144,10 @@ export default {
             maxWidth: 'none',
           },
         },
+      },
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
       },
     },
   },

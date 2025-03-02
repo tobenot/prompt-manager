@@ -1,3 +1,15 @@
+/**
+ * Prompt Manager - Prompt Form Component
+ * 
+ * 数据安全声明：本组件处理的所有数据均保存在本地IndexedDB中，
+ * 不会上传到任何服务器，确保用户提示词数据的隐私和安全。
+ * 
+ * 开源声明：本项目代码基于MIT许可证开源，欢迎贡献和使用。
+ * 
+ * @license MIT
+ * @copyright Copyright (c) 2024
+ */
+
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Prompt, PromptCategory } from '../../types';
@@ -241,7 +253,7 @@ const PromptForm: React.FC<PromptFormProps> = ({
             {t('prompt.content')} <span className="text-red-500">*</span>
           </label>
           <textarea
-            className={`input w-full min-h-[200px] font-mono text-sm ${errors.content ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+            className={`input w-full min-h-[150px] sm:min-h-[200px] font-mono text-xs sm:text-sm ${errors.content ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder={t('prompt.contentPlaceholder')}
@@ -255,7 +267,7 @@ const PromptForm: React.FC<PromptFormProps> = ({
             {t('prompt.description')}
           </label>
           <textarea
-            className="input w-full"
+            className="input w-full text-sm"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder={t('prompt.descriptionPlaceholder')}
@@ -268,8 +280,8 @@ const PromptForm: React.FC<PromptFormProps> = ({
           <label className="block text-sm font-medium mb-1.5">
             {t('prompt.category')} <span className="text-red-500">*</span>
           </label>
-          <div className="flex gap-2">
-            <div className="relative flex-1">
+          <div className="flex gap-2 flex-wrap sm:flex-nowrap">
+            <div className="relative flex-1 w-full">
               <select
                 className={`input w-full pl-10 appearance-none ${errors.categoryId ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                 value={categoryId}
@@ -325,8 +337,8 @@ const PromptForm: React.FC<PromptFormProps> = ({
               </div>
             ))}
           </div>
-          <div className="flex gap-2">
-            <div className="relative flex-1">
+          <div className="flex gap-2 flex-wrap sm:flex-nowrap">
+            <div className="relative flex-1 w-full">
               <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">
                 #
               </div>
@@ -341,7 +353,7 @@ const PromptForm: React.FC<PromptFormProps> = ({
             </div>
             <button
               type="button"
-              className="btn btn-outline"
+              className="btn btn-outline whitespace-nowrap"
               onClick={handleAddTag}
               disabled={!tagInput.trim()}
             >
@@ -371,17 +383,17 @@ const PromptForm: React.FC<PromptFormProps> = ({
         </div>
         
         {/* 按钮 */}
-        <div className="flex justify-end gap-4 pt-4">
+        <div className="flex flex-col-reverse sm:flex-row justify-end gap-4 pt-4">
           <button
             type="button"
-            className="btn btn-ghost"
+            className="btn btn-ghost w-full sm:w-auto mt-2 sm:mt-0"
             onClick={onCancel}
           >
             {t('actions.cancel')}
           </button>
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-primary w-full sm:w-auto"
           >
             {isEditing ? t('actions.update') : t('actions.create')}
           </button>
@@ -390,8 +402,8 @@ const PromptForm: React.FC<PromptFormProps> = ({
       
       {/* 新分类模态框 */}
       {showCategoryModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-xs animate-fade-in">
-          <div className="bg-card p-6 rounded-xl shadow-lg w-full max-w-md border border-border/60 animate-scale-in">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-xs animate-fade-in p-4">
+          <div className="bg-card p-4 sm:p-6 rounded-xl shadow-lg w-full max-w-md border border-border/60 animate-scale-in">
             <h3 className="text-lg font-medium mb-4">{t('category.createNew')}</h3>
             
             {categoryFormError && (
@@ -434,7 +446,7 @@ const PromptForm: React.FC<PromptFormProps> = ({
                 <label className="block text-sm font-medium mb-1.5">
                   {t('category.color')}
                 </label>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
                   <input
                     type="color"
                     className="h-10 w-12 border border-border rounded cursor-pointer"
@@ -477,17 +489,17 @@ const PromptForm: React.FC<PromptFormProps> = ({
               </div>
             </div>
             
-            <div className="flex justify-end gap-4 mt-6">
+            <div className="flex flex-col-reverse sm:flex-row justify-end gap-4 mt-6">
               <button
                 type="button"
-                className="btn btn-ghost"
+                className="btn btn-ghost w-full sm:w-auto mt-2 sm:mt-0"
                 onClick={closeCategoryModal}
               >
                 {t('actions.cancel')}
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-primary w-full sm:w-auto"
                 onClick={handleAddCategory}
               >
                 {t('actions.create')}

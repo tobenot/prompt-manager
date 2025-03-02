@@ -5,6 +5,12 @@
     "description": "在一处创建、编辑、组织和分享你的AI提示词。",
     "footer": "提示词管理器 © {{year}}"
   },
+  "privacy": {
+    "title": "数据安全声明",
+    "localDataOnly": "所有数据仅保存在您本地浏览器中，绝不会上传到任何服务器",
+    "shortNotice": "您的数据完全保存在本地",
+    "details": "本应用使用浏览器的IndexedDB存储所有提示词数据，确保您的隐私安全"
+  },
   "nav": {
     "home": "首页",
     "prompts": "提示词",

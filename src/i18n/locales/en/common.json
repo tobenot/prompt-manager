@@ -1,9 +1,15 @@
 {
   "app": {
     "name": "Prompt Manager",
-    "tagline": "Manage your AI prompts easily",
-    "description": "Create, edit, organize and share your AI prompts in one place.",
+    "tagline": "Easily manage your AI prompts",
+    "description": "Create, edit, organize, and share your AI prompts in one place.",
     "footer": "Prompt Manager © {{year}}"
+  },
+  "privacy": {
+    "title": "Data Security Notice",
+    "localDataOnly": "All data is stored only in your local browser and never uploaded to any server",
+    "shortNotice": "Your data is stored locally only",
+    "details": "This app uses your browser's IndexedDB to store all prompt data, ensuring your privacy"
   },
   "nav": {
     "home": "Home",
